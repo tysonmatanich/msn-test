@@ -39,6 +39,9 @@ jobs:
     
     - name: Install dependencies
       run: npm install
+      
+    - name: Set PUBLIC_PATH for GitHub Pages
+      run: echo "PUBLIC_PATH=/${{ github.event.repository.name }}/" >> $GITHUB_ENV
         
     - name: Build project
       run: npm run build
