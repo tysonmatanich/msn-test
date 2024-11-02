@@ -1,12 +1,14 @@
-import { readFileAndTransformXml } from "./xmlToHtml.js";
-import {
-  processElements,
-  updateCustomNameFrom,
-  updateCustomNameTo,
-  animationEnabled,
-} from "./htmlProcessing.js";
+import "../styles/reset.css";
+import "../styles/app.css";
+import "../styles/msn.css";
+import "../styles/chat.css";
 
-import xsltString from "bundle-text:../xslt/to-html.xslt"; // Inlined with Parcel
+import { readFileAndTransformXml } from "./xmlToHtml.js";
+import { processElements, updateCustomNameFrom, updateCustomNameTo, animationEnabled } from "./htmlProcessing.js";
+
+import xsltString from "../xslt/to-html.xslt"; // Inlined with Parcel
+
+//alert("asdfasdf");
 
 // Constants for element IDs and class names
 const ELEMENT_IDS = {
@@ -185,46 +187,25 @@ const Viewer = {
   // Add drag and drop listeners
   addDragAndDropListeners: () => {
     const debounceDelay = 200;
-    document.addEventListener(
-      "dragenter",
-      Viewer.dragFileDebounce(Viewer.dragBegin, debounceDelay, true)
-    );
-    document.addEventListener(
-      "dragover",
-      Viewer.dragFileDebounce(Viewer.dragBegin, debounceDelay, true)
-    );
-    document.addEventListener(
-      "dragleave",
-      Viewer.dragFileDebounce(Viewer.dragEnd, debounceDelay)
-    );
-    document.addEventListener(
-      "dragend",
-      Viewer.dragFileDebounce(Viewer.dragEnd, debounceDelay)
-    );
-    document.addEventListener(
-      "drop",
-      Viewer.dragFileDebounce(Viewer.fileDropHandler, 0, true)
-    );
+    document.addEventListener("dragenter", Viewer.dragFileDebounce(Viewer.dragBegin, debounceDelay, true));
+    document.addEventListener("dragover", Viewer.dragFileDebounce(Viewer.dragBegin, debounceDelay, true));
+    document.addEventListener("dragleave", Viewer.dragFileDebounce(Viewer.dragEnd, debounceDelay));
+    document.addEventListener("dragend", Viewer.dragFileDebounce(Viewer.dragEnd, debounceDelay));
+    document.addEventListener("drop", Viewer.dragFileDebounce(Viewer.fileDropHandler, 0, true));
   },
 
   // Add file upload listeners
   addFileUploadListeners: () => {
-    document
-      .getElementById(ELEMENT_IDS.dropZone)
-      .addEventListener("click", () => {
-        document.getElementById(ELEMENT_IDS.fileXmlUpload).click();
-      });
+    document.getElementById(ELEMENT_IDS.dropZone).addEventListener("click", () => {
+      document.getElementById(ELEMENT_IDS.fileXmlUpload).click();
+    });
 
-    document
-      .getElementById(ELEMENT_IDS.openFileUploadButton)
-      .addEventListener("click", (e) => {
-        e.stopPropagation();
-        document.getElementById(ELEMENT_IDS.fileXmlUpload).click();
-      });
+    document.getElementById(ELEMENT_IDS.openFileUploadButton).addEventListener("click", (e) => {
+      e.stopPropagation();
+      document.getElementById(ELEMENT_IDS.fileXmlUpload).click();
+    });
 
-    document
-      .getElementById(ELEMENT_IDS.fileXmlUpload)
-      .addEventListener("change", Viewer.fileChangeHandler);
+    document.getElementById(ELEMENT_IDS.fileXmlUpload).addEventListener("change", Viewer.fileChangeHandler);
   },
 
   // Open options menu
@@ -241,100 +222,114 @@ const Viewer = {
 
   // Add options toggle listeners
   addOptionsToggleListeners: () => {
-    document
-      .getElementById(ELEMENT_IDS.optionsToggle)
-      .addEventListener("click", (e) => {
-        e.stopPropagation();
-        if (document.body.classList.contains(CLASS_NAMES.showOptions)) {
-          Viewer.closeMenu();
-        } else {
-          Viewer.openMenu();
-        }
-      });
+    document.getElementById(ELEMENT_IDS.optionsToggle).addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (document.body.classList.contains(CLASS_NAMES.showOptions)) {
+        Viewer.closeMenu();
+      } else {
+        Viewer.openMenu();
+      }
+    });
   },
 
   // Add custom name listeners
   addCustomNameListeners: () => {
     const customName = document.getElementById(ELEMENT_IDS.customName);
-    const customNameCheckBox =
-      customName.getElementsByClassName("toggle-checkbox")[0];
+    const customNameCheckBox = customName.getElementsByClassName("toggle-checkbox")[0];
     customNameCheckBox.addEventListener("change", () => {
       customName.classList.toggle("show");
       document.body.classList.toggle(CLASS_NAMES.showCustomNames);
     });
 
-    document
-      .getElementById(ELEMENT_IDS.from)
-      .addEventListener("change", Viewer.fromNameChangeHandler);
-    document
-      .getElementById(ELEMENT_IDS.to)
-      .addEventListener("change", Viewer.toNameChangeHandler);
+    document.getElementById(ELEMENT_IDS.from).addEventListener("change", Viewer.fromNameChangeHandler);
+    document.getElementById(ELEMENT_IDS.to).addEventListener("change", Viewer.toNameChangeHandler);
   },
 
   // Add toggle listeners
   addToggleListeners: () => {
-    document
-      .getElementById(ELEMENT_IDS.emoticonsToggle)
-      .addEventListener("change", () => {
-        document.body.classList.toggle(CLASS_NAMES.hideEmoticons);
-      });
+    document.getElementById(ELEMENT_IDS.emoticonsToggle).addEventListener("change", () => {
+      document.body.classList.toggle(CLASS_NAMES.hideEmoticons);
+    });
 
-    document
-      .getElementById(ELEMENT_IDS.animatedToggle)
-      .addEventListener("change", (e) => {
-        animationEnabled(e.target.checked, document);
-      });
+    document.getElementById(ELEMENT_IDS.animatedToggle).addEventListener("change", (e) => {
+      animationEnabled(e.target.checked, document);
+    });
 
-    document
-      .getElementById(ELEMENT_IDS.logonNameToggle)
-      .addEventListener("change", () => {
-        document.body.classList.toggle(CLASS_NAMES.showLogonName);
-      });
+    document.getElementById(ELEMENT_IDS.logonNameToggle).addEventListener("change", () => {
+      document.body.classList.toggle(CLASS_NAMES.showLogonName);
+    });
 
-    document
-      .getElementById(ELEMENT_IDS.dateToggle)
-      .addEventListener("change", () => {
-        document.body.classList.toggle(CLASS_NAMES.showDate);
-      });
-    document
-      .getElementById(ELEMENT_IDS.timeToggle)
-      .addEventListener("change", () => {
-        document.body.classList.toggle(CLASS_NAMES.showTime);
-      });
+    document.getElementById(ELEMENT_IDS.dateToggle).addEventListener("change", () => {
+      document.body.classList.toggle(CLASS_NAMES.showDate);
+    });
+    document.getElementById(ELEMENT_IDS.timeToggle).addEventListener("change", () => {
+      document.body.classList.toggle(CLASS_NAMES.showTime);
+    });
 
-    document
-      .getElementById(ELEMENT_IDS.threadFormatToggle)
-      .addEventListener("change", () => {
-        document.body.classList.toggle(CLASS_NAMES.threadFormat);
-      });
+    document.getElementById(ELEMENT_IDS.threadFormatToggle).addEventListener("change", () => {
+      document.body.classList.toggle(CLASS_NAMES.threadFormat);
+    });
   },
 
   // Add reset listener
   addResetListener: () => {
-    document
-      .getElementById(ELEMENT_IDS.reset)
-      .addEventListener("click", Viewer.resetButtonClick);
+    document.getElementById(ELEMENT_IDS.reset).addEventListener("click", Viewer.resetButtonClick);
   },
 
   // Add event listeners
   addEventListeners: () => {
-    document
-      .getElementById(ELEMENT_IDS.from)
-      .addEventListener("change", Viewer.fromNameChangeHandler);
-    document
-      .getElementById(ELEMENT_IDS.to)
-      .addEventListener("change", Viewer.toNameChangeHandler);
+    document.getElementById(ELEMENT_IDS.from).addEventListener("change", Viewer.fromNameChangeHandler);
+    document.getElementById(ELEMENT_IDS.to).addEventListener("change", Viewer.toNameChangeHandler);
   },
 
   // Remove event listeners
   removeEventListeners: () => {
-    document
-      .getElementById(ELEMENT_IDS.from)
-      .removeEventListener("change", Viewer.fromNameChangeHandler);
-    document
-      .getElementById(ELEMENT_IDS.to)
-      .removeEventListener("change", Viewer.toNameChangeHandler);
+    document.getElementById(ELEMENT_IDS.from).removeEventListener("change", Viewer.fromNameChangeHandler);
+    document.getElementById(ELEMENT_IDS.to).removeEventListener("change", Viewer.toNameChangeHandler);
   },
 };
 
 document.addEventListener("DOMContentLoaded", Viewer.init);
+
+// Hot Module Replacement setup
+if (module.hot) {
+  module.hot.accept("../styles/app.css", function () {
+    require("../styles/app.css");
+  });
+  module.hot.accept("../styles/msn.css", function () {
+    require("../styles/msn.css");
+  });
+  module.hot.accept("../styles/chat.css", function () {
+    require("../styles/chat.css");
+  });
+  module.hot.accept("./xmlToHtml.js", function () {
+    // Re-import updated module
+    require("./xmlToHtml.js");
+  });
+  module.hot.accept("./htmlProcessing.js", function () {
+    // Re-import updated module
+    require("./htmlProcessing.js");
+  });
+  module.hot.accept("../xslt/to-html.xslt", function () {
+    // Re-import updated module
+    require("../xslt/to-html.xslt");
+  });
+  module.hot.accept();
+}
+
+// // Function to update HTML content without a full reload
+// async function updateHtml() {
+//   try {
+//     const response = await fetch("/index.html");
+//     const text = await response.text();
+//     const parser = new DOMParser();
+//     const doc = parser.parseFromString(text, "text/html");
+//     document.body.innerHTML = doc.querySelector("body").innerHTML;
+//   } catch (error) {
+//     console.error("Error fetching updated HTML:", error);
+//   }
+// } // Hot Module Replacement setup
+// if (module.hot) {
+//   module.hot.accept();
+//   updateHtml(); // Call updateHtml to fetch the latest HTML on module update
+// }

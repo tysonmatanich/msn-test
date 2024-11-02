@@ -1,3 +1,5 @@
+if (module.hot) { module.hot.accept(); }
+
 import { emoticons } from "./emoticons.js";
 import { escapeRegExp } from "./escapeRegExp.js";
 import { roundNumber, basicPluralString } from "./helper.js";

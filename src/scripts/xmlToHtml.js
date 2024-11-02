@@ -1,5 +1,8 @@
 const domParser = new DOMParser();
 
+
+//alert("asfasdfasdsafd");
+
 const readFileAsXml = (xmlFile) => {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
@@ -44,3 +47,5 @@ export const readFileAndTransformXml = async (xmlFile, xsltString) => {
     throw error;
   }
 };
+
+if (module.hot) { module.hot.accept(); }

@@ -10,7 +10,9 @@ body {
   background-size: cover;
   display: flex;
   flex-direction: column-reverse;
-  height: 100vh
+  height: 100vh;
+
+  background: blue;
 }
 
 body > .viewer_header {
@@ -388,7 +390,7 @@ body.drag-over .msn-messenger-window {
 #drop_zone {
   position: relative;
 
-  &:hover, &:drop {
+  &:hover {
     cursor: pointer;
 
     &::before {
@@ -403,11 +405,9 @@ body.drag-over .msn-messenger-window {
     }
   }
 
-  .msn_log {
-    & p {
-      font-size: 1.3em;
-      color: #db0000;
-    }
+  .msn_log p {
+    font-size: 1.3em;
+    color: #db0000;
   }
 }
 

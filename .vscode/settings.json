@@ -1,6 +1,7 @@
 {
   "editor.formatOnSave": false,
   "editor.rulers": [145],
+  "prettier.printWidth": 145,
   "editor.tabSize": 2,
   "files.exclude": {
     ".netlify": true,

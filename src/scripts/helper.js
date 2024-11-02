@@ -1,3 +1,5 @@
+if (module.hot) { module.hot.accept(); }
+
 export function roundNumber(number, decimalPlaces) {
   const factor = Math.pow(10, decimalPlaces);
   return Math.round(number * factor) / factor;
